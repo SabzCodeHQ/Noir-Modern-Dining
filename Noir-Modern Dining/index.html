@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10100e">
+<title>NOIR | Modern Dining</title>
+<meta name="description" content="NOIR is a premium restaurant website concept created by SabzCodeHQ.">
+<style>
+:root{--bg:#10100e;--panel:#191916;--cream:#f0eadf;--muted:#aaa69d;--gold:#c7a66b;--line:#ffffff20}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{background:var(--bg);color:var(--cream);font-family:Georgia,"Times New Roman",serif;overflow-x:hidden}
+body,button,a{cursor:default}
+a{color:inherit;text-decoration:none;cursor:pointer}
+button{font:inherit;cursor:pointer}
+img{width:100%;height:100%;object-fit:cover;display:block}
+.wrap{width:min(1200px,90%);margin:auto}
+header{position:fixed;top:0;left:0;width:100%;z-index:50;transition:.35s;background:linear-gradient(#10100edb,transparent)}
+header.scrolled{background:#10100ef5;backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:25px;letter-spacing:7px;font-weight:bold}
+.logo small{display:block;font:9px Arial,sans-serif;letter-spacing:4px;color:var(--gold);margin-top:2px}
+.navlinks{display:flex;align-items:center;gap:30px;font:11px Arial,sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.navlinks a{color:#d4d0c7;transition:color .25s}
+.navlinks a:hover{color:var(--gold)}
+.nav-cta{border:1px solid #c7a66b88;padding:12px 17px}
+.menu-toggle{display:none;background:none;border:1px solid var(--line);color:white;padding:9px 12px}
+.hero{min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-image{position:absolute;inset:0;z-index:-2}
+.hero-image img{object-position:center 56%;animation:slowzoom 18s ease-in-out infinite alternate;filter:brightness(.55)}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#10100ef5 0%,#10100ea8 48%,#10100e20 100%),linear-gradient(0deg,#10100e 0%,transparent 30%)}
+.hero-content{padding:145px 0 100px;max-width:760px}
+.eyebrow{font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:4px;color:var(--gold);margin-bottom:25px;display:flex;align-items:center;gap:13px}
+.eyebrow:before{content:"";height:1px;width:35px;background:var(--gold)}
+h1{font-size:clamp(64px,10vw,128px);line-height:.91;font-weight:normal;letter-spacing:-5px}
+h1 em{font-weight:normal;color:var(--gold)}
+.hero-copy{font-size:17px;line-height:1.9;color:#d0ccc2;max-width:440px;margin:28px 0 32px}
+.buttons{display:flex;flex-wrap:wrap;gap:13px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 22px;font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:2px;border:1px solid #ffffff60;transition:.3s}
+.btn.gold{background:var(--gold);color:#15130e;border-color:var(--gold)}
+.btn:hover{transform:translateY(-3px);background:var(--cream);color:#111;border-color:var(--cream)}
+.hero-note{position:absolute;right:5%;bottom:65px;writing-mode:vertical-rl;font:9px Arial,sans-serif;letter-spacing:3px;color:#ddd}
+.hero-bottom{position:absolute;left:5%;bottom:32px;font:9px Arial,sans-serif;letter-spacing:3px;color:#c2bdb3}
+section{padding:110px 0}
+.section-top{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:45px}
+.kicker{font:10px Arial,sans-serif;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:18px}
+h2{font-size:clamp(40px,6vw,72px);font-weight:normal;line-height:1.05;letter-spacing:-2px}
+.section-desc{max-width:370px;color:var(--muted);font-size:15px;line-height:1.9}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.intro-image{height:540px;position:relative}
+.intro-image img{filter:brightness(.82)}
+.image-caption{position:absolute;bottom:-18px;right:-18px;background:var(--gold);color:#16130e;padding:24px;font-size:13px;font-style:italic}
+.intro-text p{color:var(--muted);font-size:16px;line-height:2;margin:24px 0}
+.signature{font-style:italic;color:var(--gold);font-size:25px;margin-top:28px}
+.menu-section{background:#171714}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.dish{border:1px solid #ffffff16;background:#11110f;transition:transform .4s,border-color .4s;overflow:hidden}
+.dish:hover{transform:translateY(-7px);border-color:#c7a66b80}
+.dish-photo{height:270px;overflow:hidden;position:relative}
+.dish-photo img{transition:transform .8s,filter .4s;filter:brightness(.8)}
+.dish:hover .dish-photo img{transform:scale(1.07);filter:brightness(1)}
+.dish-label{position:absolute;top:15px;left:15px;background:#10100ee8;padding:8px 10px;font:9px Arial,sans-serif;letter-spacing:2px;color:var(--gold)}
+.dish-body{padding:23px}
+.dish-title{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.dish h3{font-size:22px;font-weight:normal}
+.dish-price{font-size:16px;color:var(--gold);white-space:nowrap}
+.dish p{color:var(--muted);font-size:13px;line-height:1.8;margin-top:12px}
+.menu-foot{text-align:center;margin-top:40px;color:var(--muted);font-size:12px;font-style:italic}
+.experience{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.experience-image{height:570px;position:relative}
+.experience-image img{filter:brightness(.8)}
+.experience-image:before{content:"";position:absolute;z-index:1;inset:18px -18px -18px 18px;border:1px solid #c7a66b80;pointer-events:none}
+.experience-copy p{color:var(--muted);line-height:2;margin:24px 0}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px}
+.feature{border-top:1px solid var(--line);padding-top:15px}
+.feature strong{display:block;font-size:17px;font-weight:normal;margin-bottom:7px}
+.feature span{font:10px Arial,sans-serif;color:var(--muted);letter-spacing:1px}
+.quote{padding:100px 0;text-align:center;background:linear-gradient(#10100eaa,#10100eee),url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=85") center/cover}
+.quote-mark{font-size:55px;color:var(--gold);line-height:1}
+.quote blockquote{max-width:780px;margin:25px auto;font-size:clamp(27px,4vw,46px);line-height:1.35;font-style:italic}
+.quote cite{font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:3px;color:var(--gold)}
+.reservation{padding:110px 0}
+.reservation-box{text-align:center;padding:80px 25px;border:1px solid #c7a66b65;background:radial-gradient(ellipse at center,#c7a66b12,transparent 70%)}
+.reservation-box .eyebrow{justify-content:center}
+.reservation-box h2{max-width:750px;margin:0 auto}
+.reservation-box p{max-width:510px;color:var(--muted);line-height:1.9;margin:23px auto 30px}
+footer{border-top:1px solid var(--line);padding:32px 0}
+.footer-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-brand{font-size:20px;letter-spacing:5px}
+.footer-copy{font:10px Arial,sans-serif;letter-spacing:1px;color:#8c897f}
+.footer-links{display:flex;gap:20px;font:10px Arial,sans-serif;color:#bbb}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes slowzoom{from{transform:scale(1)}to{transform:scale(1.09)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+@media(max-width:850px){
+ .navlinks{gap:16px}
+ .intro-grid,.experience{gap:40px}
+ .intro-image,.experience-image{height:430px}
+ .menu-grid{grid-template-columns:repeat(2,1fr)}
+ .dish:last-child{grid-column:1/-1}
+}
+@media(max-width:650px){
+ .nav{height:72px}
+ .menu-toggle{display:block}
+ .navlinks{display:none;position:absolute;top:72px;left:0;right:0;padding:25px 5%;background:#10100e;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line)}
+ .navlinks.open{display:flex}
+ .navlinks a{padding:8px 0}
+ .nav-cta{text-align:center}
+ .hero-content{padding:130px 0 110px}
+ h1{letter-spacing:-3px}
+ .hero-copy{font-size:15px}
+ .hero-note{display:none}
+ section{padding:75px 0}
+ .section-top{display:block}
+ .section-desc{margin-top:18px}
+ .intro-grid,.experience{grid-template-columns:1fr;gap:40px}
+ .intro-image,.experience-image{height:360px;margin-right:10px}
+ .image-caption{right:-10px}
+ .menu-grid{grid-template-columns:1fr}
+ .dish:last-child{grid-column:auto}
+ .dish-photo{height:260px}
+ .quote{padding:75px 0}
+ .reservation-box{padding:60px 20px}
+ .footer-row{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header id="header">
+<div class="wrap nav">
+<a href="#home" class="logo">NOIR<small>MODERN DINING</small></a>
+<button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Open navigation">☰</button>
+<nav class="navlinks" id="navlinks">
+<a href="#story">Our philosophy</a>
+<a href="#menu">The menu</a>
+<a href="#experience">Experience</a>
+<a href="#reserve" class="nav-cta">Reservations ↗</a>
+</nav>
+</div>
+</header>
+
+<main>
+<section class="hero" id="home">
+<div class="hero-image">
+<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2200&q=90" alt="Elegant contemporary restaurant dining room">
+</div>
+<div class="wrap">
+<div class="hero-content reveal">
+<div class="eyebrow">A different kind of dining</div>
+<h1>Good taste.<br><em>Great feeling.</em></h1>
+<p class="hero-copy">An intimate dining concept where beautiful ingredients, thoughtful cooking and memorable moments come together.</p>
+<div class="buttons">
+<a href="#menu" class="btn gold">Explore the menu ↗</a>
+<a href="#story" class="btn">Discover NOIR</a>
+</div>
+</div>
+</div>
+<div class="hero-bottom">AN EXPERIMENT IN MODERN DINING</div>
+<div class="hero-note">GOOD FOOD · GOOD COMPANY · GOOD MOMENTS</div>
+</section>
+
+<section id="story">
+<div class="wrap intro-grid">
+<div class="intro-image reveal">
+<img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1000&q=85" alt="Beautifully presented meal at a fine dining table" loading="lazy">
+<div class="image-caption">Made to be remembered.</div>
+</div>
+<div class="intro-text reveal">
+<div class="kicker">01 / Our philosophy</div>
+<h2>Not just a meal.<br>A whole mood.</h2>
+<p>NOIR is a restaurant website concept built around the idea that dining should engage every sense. From the first impression to the final bite, every detail deserves intention.</p>
+<p>Seasonal inspiration, thoughtful presentation and a warm atmosphere shape this fictional dining experience. The result is a space for slow evenings, meaningful conversations and a little indulgence.</p>
+<div class="signature">The art of staying awhile.</div>
+</div>
+</div>
+</section>
+
+<section class="menu-section" id="menu">
+<div class="wrap">
+<div class="section-top reveal">
+<div><div class="kicker">02 / Signature selection</div><h2>A taste of NOIR.</h2></div>
+<p class="section-desc">A sample menu created for this design concept. Dishes and descriptions are illustrative, ready to be replaced with a real restaurant's menu.</p>
+</div>
+<div class="menu-grid">
+<article class="dish reveal">
+<div class="dish-photo"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85" alt="Fresh salad with colorful seasonal ingredients" loading="lazy"><span class="dish-label">TO BEGIN</span></div>
+<div class="dish-body"><div class="dish-title"><h3>Garden in Bloom</h3><span class="dish-price">—</span></div><p>A vibrant seasonal salad, fresh herbs, delicate greens and a bright citrus dressing.</p></div>
+</article>
+<article class="dish reveal">
+<div class="dish-photo"><img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=900&q=85" alt="Beautifully plated gourmet main course" loading="lazy"><span class="dish-label">THE MAIN EVENT</span></div>
+<div class="dish-body"><div class="dish-title"><h3>Ember & Earth</h3><span class="dish-price">—</span></div><p>A chef-inspired main course concept with roasted seasonal vegetables and rich, layered flavors.</p></div>
+</article>
+<article class="dish reveal">
+<div class="dish-photo"><img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=85" alt="Elegant dessert with chocolate and cream" loading="lazy"><span class="dish-label">SOMETHING SWEET</span></div>
+<div class="dish-body"><div class="dish-title"><h3>Midnight Indulgence</h3><span class="dish-price">—</span></div><p>A decadent dessert concept with velvety chocolate notes and a beautifully finished presentation.</p></div>
+</article>
+</div>
+<p class="menu-foot">Sample dishes shown for demonstration. Final menu and pricing would be confirmed by the restaurant.</p>
+</div>
+</section>
+
+<section id="experience">
+<div class="wrap experience">
+<div class="experience-copy reveal">
+<div class="kicker">03 / The experience</div>
+<h2>Come for the food.<br>Stay for the feeling.</h2>
+<p>Imagine warm lighting, considered details and a table set for an evening worth remembering. This concept brings the atmosphere of a modern dining room into a polished digital experience.</p>
+<p>Whether you're planning an intimate dinner, a special celebration or a relaxed evening with friends, the right setting makes every moment feel different.</p>
+<div class="features">
+<div class="feature"><strong>Thoughtful details</strong><span>THE SETTING</span></div>
+<div class="feature"><strong>Seasonal inspiration</strong><span>THE MENU</span></div>
+<div class="feature"><strong>Time well spent</strong><span>THE MOMENT</span></div>
+<div class="feature"><strong>Made for connection</strong><span>THE COMPANY</span></div>
+</div>
+</div>
+<div class="experience-image reveal">
+<img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1100&q=85" alt="Fine dining table setting" loading="lazy">
+</div>
+</div>
+</section>
+
+<section class="quote">
+<div class="wrap reveal">
+<div class="quote-mark">“</div>
+<blockquote>The best evenings are the ones you wish could last a little longer.</blockquote>
+<cite>The NOIR philosophy</cite>
+</div>
+</section>
+
+<section class="reservation" id="reserve">
+<div class="wrap">
+<div class="reservation-box reveal">
+<div class="eyebrow">04 / Your next memorable evening</div>
+<h2>Some moments deserve a table of their own.</h2>
+<p>This is a visual reservation section for the website concept. For a real restaurant, we can connect it to WhatsApp, a booking system or a reservation form.</p>
+<a class="btn gold" href="mailto:hello@example.com?subject=NOIR%20website%20demo%20enquiry">Enquire about this concept ↗</a>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap footer-row">
+<a class="footer-brand" href="#home">NOIR</a>
+<div class="footer-copy">A FICTIONAL RESTAURANT WEBSITE CONCEPT</div>
+<div class="footer-links"><a href="#story">Our story</a><a href="#menu">Menu</a><a href="#home">Back to top ↑</a></div>
+</div>
+</footer>
+
+<script>
+const header = document.getElementById("header");
+const toggle = document.getElementById("menuToggle");
+const links = document.getElementById("navlinks");
+
+window.addEventListener("scroll", () => {
+  header.classList.toggle("scrolled", window.scrollY > 40);
+});
+
+toggle.addEventListener("click", () => {
+  const open = links.classList.toggle("open");
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.textContent = open ? "✕" : "☰";
+});
+
+links.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    links.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.textContent = "☰";
+  });
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.12});
+
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
